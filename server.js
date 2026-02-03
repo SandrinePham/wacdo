@@ -10,7 +10,7 @@ app.use(express.json());
 mongoose
   .connect("mongodb+srv://sandrinepham89_db_user:QcfKmOnbFykQ7V3S@profil1.qt4zib6.mongodb.net/?appName=Profil1")
   .then(() => console.log("✅ Connecté à MongoDB Atlas"))
-  .catch((err) => console.error("❌ Erreur MongoDB :", err));
+  .catch((err) => console.error("❌ Erreur MongoDB  :", err));
 
 // Route test
 app.get("/", (req, res) => {
