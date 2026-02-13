@@ -19,10 +19,22 @@ async function connectDB() {
 
 module.exports = async (req, res) => {
   try {
-    await connectDB();
+    // Swagger et ses assets ne doivent PAS dépendre de MongoDB
+    const url = req.url || "";
+    const isSwagger =
+      url.startsWith("/api-docs") ||
+      url.includes("swagger-ui") ||
+      url.includes("swagger-ui-bundle") ||
+      url.includes("swagger-ui-standalone") ||
+      url.includes("swagger-ui-init");
+
+    if (!isSwagger) {
+      await connectDB();
+    }
+
     return app(req, res);
   } catch (err) {
-    console.error("DB connection error:", err);
+    console.error("DB connection error:", err.message);
     return res.status(500).json({ message: "Erreur connexion DB" });
   }
 };
